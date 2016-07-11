@@ -1,0 +1,26 @@
+
+/* ボタン */
+.kintoneplugin-button-normal {
+  display: inline-block;
+  box-sizing: border-box;
+  margin-top: 28px;
+  padding-top: 4px;
+  min-width: 48px;
+  min-height: 48px;
+  outline: none;
+  border: 1px solid #e3e7e8;
+  background-color: #f7f9fa;
+  box-shadow: 1px 1px 1px #fff inset;
+  text-align: center;
+}
+
+.kintoneplugin-button-normal:hover {
+  box-shadow: none;
+  cursor: pointer;
+  background-color: #c8d6dd;
+}
+
+.fa-original{
+	color: #a8a8a8;
+	font-size: 25px !important;
+}

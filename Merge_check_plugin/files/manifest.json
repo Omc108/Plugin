@@ -1,0 +1,40 @@
+{
+    "manifest_version": 1,
+    "version": 1,
+    "type": "APP",
+    "name": {
+        "ja": "重複チェックプラグイン",
+        "en": "Double-Booking　Check plug-in",
+        "zh": "输入值校验插件"
+    },
+    "description": {
+        "ja": "重複チェックボタンを表示させ、似たレコードを検出するプラグインです。",
+        "en": "When pushed check button , it detect similar records .",
+        "zh": "邮政编码，它是一个插件，以检查电话号码，传真号码，E-mail地址的输入值"
+    },
+    "icon": "icon.png",
+    "desktop": {
+        "js": [
+            "https://js.cybozu.com/jquery/1.11.1/jquery.min.js",
+            "desktops/desktop.js",
+            "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.min.js"
+        ],
+        "css": [
+                "desktops/desktop.css",
+                "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.css",
+                "https://js.cybozu.com/font-awesome/v4.5.0/css/font-awesome.min.css"
+        ]        
+    },
+    "config": {
+        "html": "settings/setting.html",
+        "js": [
+                "https://js.cybozu.com/jquery/1.11.1/jquery.min.js",
+                "settings/setting.js"
+        ],
+        "css": [
+                "settings/setting.css",
+                "https://js.cybozu.com/font-awesome/v4.5.0/css/font-awesome.min.css"
+
+        ]
+    }
+}
