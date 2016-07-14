@@ -29,8 +29,12 @@
 		mergebtn.onclick = function(){
 			var array = [];
 			var flug = 0;
+			var rec = kintone.app.record.getId();
 			var param = {};
 			param.app = conf3;
+			if(rec){
+				param.query = '$id != ' + rec;
+			}
 			param.fields = ['$id',conf4];
 
 			kintone.api('/k/v1/records', "GET", param, function(resp) {
@@ -68,8 +72,12 @@
 		mergebtn.onclick = function(){
 			var array = [];
 			var flug = 0;
+			var rec = kintone.app.record.getId();
 			var param = {};
 			param.app = conf3;
+			if(rec){
+				param.query = '$id != ' + rec;
+			}
 			param.fields = ['$id', conf4];
 			var url = kintone.api.url('/k');
 
