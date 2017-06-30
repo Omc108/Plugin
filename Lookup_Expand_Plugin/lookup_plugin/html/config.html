@@ -1,0 +1,67 @@
+<div class="block">
+    <label class="kintoneplugin-label">
+        <span>プラグイン用ルックアップ</span>
+        <span class="kintoneplugin-require">必須</span>
+    </label>
+    <br >
+    <div class="kintoneplugin-row">プラグインを適用するルックアップフィールドを選択してください。</div>
+    <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select">
+            <select name="lookup-select" id= "lookup-select">
+                <option value="">-----</option>
+            </select>
+        </div>
+    </div>
+</div>
+<br >
+<div class="block">
+    <label class="kintoneplugin-label">
+        <span>プラグイン用スペース</span>
+        <span class="kintoneplugin-require">必須</span>
+    </label>
+    <br >
+    <div class="kintoneplugin-row">追加ボタンを表示するスペースフィールドを選択してください。<br >スペースはルックアップの右隣りに設置して下さい。</div>
+    <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select">
+            <select name="space-select" id="space-select">
+                <option value="">-----</option>
+            </select>
+        </div>
+    </div>
+</div>
+<br >
+<div class="block">
+    <label class="kintoneplugin-label">
+        <span>機能制限</span>
+    </label>
+    <br >
+    <div class="kintoneplugin-row">有効にする機能を選択してください。<br >更新機能はルックアップの値がレコード番号、<br >または重複を禁止したフィールドの場合のみ有効化できます。</div>
+    <div class="kintoneplugin-input-checkbox">
+        <span class="kintoneplugin-input-checkbox-item">
+            <input type="checkbox" id="create-toggle" name="create-toggle" value="on">
+            <label for="create-toggle">新規</label>　
+            <input type="checkbox" id="reload-toggle" name="reload-toggle" value="on">
+            <label for="reload-toggle">更新</label>
+        </span>
+    </div>
+</div>
+<br >
+<div class="block">
+    <label class="kintoneplugin-label">
+        <span>ルックアップ自動取得</span>
+    </label>
+    <br >
+    <div class="kintoneplugin-row">自動取得機能を有効にするとポップアップを閉じたタイミングで<br >ルックアップフィールドの値を自動で取得・更新します。<br >ルックアップの値が重複している場合は、有効時でも自動取得はされません。</div>
+    <div class="kintoneplugin-input-checkbox">
+        <span class="kintoneplugin-input-checkbox-item">
+            <input type="checkbox" id="auto-flag" name="auto-flag" value="on">
+            <label for="auto-flag">有効にする</label>
+        </span>
+    </div>
+</div>
+<br >
+<div class="block">
+    <button type="button" id="lookup-plugin-submit" class="kintoneplugin-button-dialog-ok">保存する</button>
+    <span class="kintoneplugin-button-between"/>
+    <button type="button" id="lookup-plugin-cancel" class="kintoneplugin-button-dialog-cancel">キャンセル</button>
+</div>

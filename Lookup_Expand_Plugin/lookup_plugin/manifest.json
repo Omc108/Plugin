@@ -1,0 +1,39 @@
+{
+    "manifest_version": 1,
+    "version": 1,
+    "type": "APP",
+    "name": {
+        "ja": "ルックアップ拡張プラグイン",
+        "en": "Lookup Expand Plugin",
+        "zh": "即席取得插件"
+    },
+    "description": {
+        "ja": "マスタへの新規処理、更新処理をルックアップに追加するプラグインです。",
+        "en": "The plugin add create and edit functions for lookup fields.",
+        "zh": "新工艺的大师，是一个插件，增加了更新过程查找"
+    },
+    "icon": "img/icon.png",
+    "desktop": {
+        "js": [
+            "https://js.cybozu.com/jquery/3.1.1/jquery.min.js",
+            "js/lity.min.js",
+            "js/desktop.js"
+        ],
+        "css": [
+            "css/desktop.css",
+            "css/lity.min.css"
+        ]
+    },
+    "config": {
+        "html": "html/config.html",
+        "js": [
+            "https://js.cybozu.com/jquery/3.1.1/jquery.min.js",
+            "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.min.js",
+            "js/config.js"
+        ],
+        "css": [
+             "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.css",
+             "css/config.css"
+        ]
+    }
+}
