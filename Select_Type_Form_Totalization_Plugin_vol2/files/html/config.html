@@ -1,0 +1,92 @@
+<table class="kintoneplugin-table">
+  <thead>
+    <tr>
+      <th class="kintoneplugin-table-th">
+        <span class="title">
+          <label class="kintoneplugin-label"><span id ="container_label">集計対象フィールド </span></label><br >
+          <div class="kintoneplugin-row">集計対象となる項目を選択してください。<br >ドロップダウン, ラジオボタン, チェックボックス<br >複数選択タイプの項目が選択できます。</div>
+        </span>
+      </th>
+      <th class="kintoneplugin-table-th">
+        <span class="title">
+          <label class="kintoneplugin-label"><span id ="container_label">集計方法 </span></label><br >
+          <div class="kintoneplugin-row">集計方法を選択してください。<br >COUNT: 値の数　SUM: 値の和<br >AVERAGE: 値の平均</div>
+        </span>
+      </th>
+      <th class="kintoneplugin-table-th">
+        <span class="title">
+          <label class="kintoneplugin-label"><span id ="container_label">集計ワード </span></label><br >
+          <div class="kintoneplugin-row">集計を行う文字列を<br >入力してください。<br >(集計方法がCOUNTの場合のみ)</div>
+        </span>
+      </th>
+      <th class="kintoneplugin-table-th">
+        <span class="title">
+          <label class="kintoneplugin-label"><span id ="container_label">集計結果フィールド </span></label><br >
+          <div class="kintoneplugin-row">集計した値を表示する<br >数値項目を選択してください。</div>                </span>
+      </th>
+      <th class="kintoneplugin-table-th-blankspace"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="kintoneplugin-table-td-control">
+          <div class="kintoneplugin-table-td-control-value">
+            <div class="kintoneplugin-dropdown-list totalization-fields">
+              <div class="kintoneplugin-dropdown-list-default"><span class="kintoneplugin-dropdown-list-item-name">選択中 </span><span class="kintoneplugin-dropdown-list-item-name-blue">0</span><span class="kintoneplugin-dropdown-list-item-name"> 件</span></div>
+            </div>
+            <div class="kintoneplugin-dropdown-list-toggle">
+              <div class="kintoneplugin-dropdown-list-toggle-icon" title="Show fields"/>
+            </div>
+            <div class="clear"/>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="kintoneplugin-table-td-control">
+          <div class="kintoneplugin-table-td-control-value">
+            <div class="kintoneplugin-select-outer">
+              <div class="kintoneplugin-select">
+                <select name="method-select" class="method-select">
+                  <option value="count">COUNT</option>
+                  <option value="sum">SUM</option>
+                  <option value="average">AVERAGE</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="kintoneplugin-table-td-control">
+          <div class="kintoneplugin-table-td-control-value">
+            <div class="kintoneplugin-input-outer">
+              <input class="kintoneplugin-input-text word-input" type="text">
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="kintoneplugin-table-td-control">
+          <div class="kintoneplugin-table-td-control-value">
+            <div class="kintoneplugin-select-outer">
+              <div class="kintoneplugin-select">
+                <select name="num-select" class="num-select">
+                  <option value="">-----</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td class="kintoneplugin-table-td-operation">
+        <button type="button" class="kintoneplugin-button-add-row-image" title="Add row"></button>
+        <button type="button" class="kintoneplugin-button-remove-row-image" title="Delete this row"></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="block">
+  <button type="button" class="kintoneplugin-button-dialog-ok totalization-submit">     保存する     </button>
+  <button type="button" class="kintoneplugin-button-dialog-cancel totalization-cancel">     キャンセル   </button>
+</div>
