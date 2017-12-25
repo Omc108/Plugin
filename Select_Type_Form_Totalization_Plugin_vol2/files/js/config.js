@@ -1,6 +1,6 @@
 jQuery.noConflict();
 const tr = '.kintoneplugin-table tbody tr';
-(($, PLUGIN_ID) => {
+(function($, PLUGIN_ID) {
     'use strict';
     // プラグインIDの設定を取得
     var conf_table;
@@ -13,15 +13,15 @@ const tr = '.kintoneplugin-table tbody tr';
         $('.kintoneplugin-table tbody').append($(tr).eq(0).clone());
         $(tr).eq(1).find('.kintoneplugin-button-remove-row-image').css('display', 'none');
     } else {
-        $.each(conf_table, (i) => {
+        $.each(conf_table, function(i) {
             $('.kintoneplugin-table tbody').append($(tr).eq(0).clone());
         });
         if ($(tr).length <= 2) $(tr).eq(1).find('.kintoneplugin-button-remove-row-image').css('display', 'none');
     }
    // 過去の設定値を代入
-    const setDefault = () => {
+    const setDefault = function() {
         if (conf) {
-            $.map(conf_table, (n, i) => {
+            $.map(conf_table, function(n, i) {
                 $(tr).eq(i + 1).find('.num-select').val(n.totalization_num);
                 $(tr).eq(i + 1).find('.word-input').val(n.totalization_word);
                 $(tr).eq(i + 1).find('.method-select').val(n.totalization_method);
@@ -44,17 +44,17 @@ const tr = '.kintoneplugin-table tbody tr';
         return;
     };
     // エスケープ処理
-    const escapeHtml = htmlstr => {
+    const escapeHtml = function(htmlstr) {
         return htmlstr.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     };
     // 選択肢の設定
-    const setValues = () => {
+    const setValues = function() {
         let param = {};
         param.app = kintone.app.getId();
         // フォームの設計情報を取得し、選択項目に代入
-        kintone.api('/k/v1/preview/form', 'GET', param, (resp) => {
-            $.each(resp.properties, i => {
+        kintone.api('/k/v1/preview/form', 'GET', param, function(resp) {
+            $.each(resp.properties, function(i) {
                 const prop = resp.properties[i];
                 const $option = $('<option>');
                 const $div = $('<div class="kintoneplugin-dropdown-list-item">');
@@ -78,7 +78,7 @@ const tr = '.kintoneplugin-table tbody tr';
 
                     case 'SUBTABLE':
                         let subtable_code = prop.code;
-                        $.each(prop.fields, (i, val) => {
+                        $.each(prop.fields, function(i, val) {
                             switch (val.type) {
                                 case 'CHECK_BOX':
                                 case 'MULTI_SELECT':
@@ -99,18 +99,18 @@ const tr = '.kintoneplugin-table tbody tr';
                 }
             });
             // 複数選択項目で選択した値の横にチェック and カウント
-            $(document).on('click', '.kintoneplugin-dropdown-list-item', event => {
+            $(document).on('click', '.kintoneplugin-dropdown-list-item', function(event) {
                 let _self = event.currentTarget;
                 if ($(_self).hasClass('kintoneplugin-dropdown-list-item-selected')) $(_self).removeClass('kintoneplugin-dropdown-list-item-selected');
                 else $(_self).addClass('kintoneplugin-dropdown-list-item-selected');
                 $(_self).siblings('.kintoneplugin-dropdown-list-default').find('.kintoneplugin-dropdown-list-item-name-blue').text($(_self).siblings('.kintoneplugin-dropdown-list-default').siblings('.kintoneplugin-dropdown-list-item-selected').length);
             });
             // 複数選択項目を折り畳む
-            $(document).on('click', '.kintoneplugin-dropdown-list-toggle', event => {
+            $(document).on('click', '.kintoneplugin-dropdown-list-toggle', function(event) {
                 $(event.currentTarget).prev('.kintoneplugin-dropdown-list').find('.kintoneplugin-dropdown-list-item').slideToggle();
             });
             // 集計方法がCOUNT以外の場合、集計ワードをグレーアウト
-            $(document).on('change', '.method-select', event => {
+            $(document).on('change', '.method-select', function(event) {
                 let _self = event.currentTarget;
                 const $input = $(_self).parent().parent().parent().parent().parent().next().find('.word-input');
                 if ($(_self).val() !== 'count') {
@@ -129,13 +129,12 @@ const tr = '.kintoneplugin-table tbody tr';
                 }
             });
            setDefault();
-        }, (e) => {
-            swal('Error', `apiの取得に失敗しました。再度読み込んでください。
-            ${e}`, 'error');
+        }, function(e) {
+            swal('Error', 'apiの取得に失敗しました。再度読み込んでください。\n' +  e, 'error');
         });
     };
     //「＋」ボタンを押下した際に行を増やす
-    $(document).on('click', '.kintoneplugin-button-add-row-image', event => {
+    $(document).on('click', '.kintoneplugin-button-add-row-image', function(event) {
         if ($(tr).length <= 20) {
             $(tr).eq(0).clone().insertAfter($(event.currentTarget).parent().parent());
             if ($(tr).length >= 3) $(tr).eq(1).find('.kintoneplugin-button-remove-row-image').css('display', 'inline');
@@ -144,33 +143,34 @@ const tr = '.kintoneplugin-table tbody tr';
         }
     });
     //「－」ボタンを押下した際に行を減らす
-    $(document).on('click', '.kintoneplugin-button-remove-row-image', event => {
+    $(document).on('click', '.kintoneplugin-button-remove-row-image', function(event) {
         $(event.currentTarget).parent().parent().remove();
         if ($(tr).length <= 2) $(tr).eq(1).find('.kintoneplugin-button-remove-row-image').css('display', 'none');
     });
     // エラー処理
-    const checkError = table => {
+    const checkError = function(table) {
         let error_word = [];
         let deplicate_check = [];
-        $.each(table, (i, row) => {
-            if (row.totalization_num === '') error_word.push(`${ i + 1 }行目の集計結果フィールドが選択されておりません`);
-            else if (deplicate_check.indexOf(row.totalization_num) !== -1) error_word.push(`${ i + 1 }行目の集計結果フィールドが他の行と重複しています。`);
+        $.each(table, function(i, row) {
+            i = i + 1;
+            if (row.totalization_num === '') error_word.push( i + '行目の集計結果フィールドが選択されておりません');
+            else if (deplicate_check.indexOf(row.totalization_num) !== -1) error_word.push(i + '行目の集計結果フィールドが他の行と重複しています。');
             else deplicate_check.push(row.totalization_num);
-            if (row.totalization_method === 'count' && row.totalization_word === '') error_word.push(`${ i + 1 }行目の集計ワードが選択されておりません`);
-            if (row.totalization_fields.length === 0) error_word.push(`${ i + 1 }行目の集計対象フィールドが選択されておりません`);
+            if (row.totalization_method === 'count' && row.totalization_word === '') error_word.push(i + '行目の集計ワードが選択されておりません');
+            if (row.totalization_fields.length === 0) error_word.push(i + '行目の集計対象フィールドが選択されておりません');
         });
         if (error_word.length !== 0) {
             if (error_word.length > 5) {
                 let other_num = error_word.length - 5;
                 error_word = error_word.slice(0, 5);
-                error_word.push(`他 ${ other_num }件`);
+                error_word.push('他' + other_num + '件');
             }
             swal('Error', error_word.join('\n'), 'error');
         }
         else return true;
     };
     //「保存する」ボタン押下時に入力情報を設定
-    $('.totalization-submit').click(() => {
+    $('.totalization-submit').click(function() {
         const config = {};
         const table = [];
         $(tr).each(function(){
@@ -193,7 +193,7 @@ const tr = '.kintoneplugin-table tbody tr';
         }
    });
     //「キャンセル」ボタン押下時の処理
-    $('.totalization-cancel').click(() => {
+    $('.totalization-cancel').click(function() {
         window.history.back();
     });
     setValues();

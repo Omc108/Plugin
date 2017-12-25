@@ -1,5 +1,5 @@
 jQuery.noConflict();
-(($, PLUGIN_ID) => {
+(function($, PLUGIN_ID) {
 	'use strict';
 	let record;
 
@@ -9,13 +9,13 @@ jQuery.noConflict();
 	const tables = JSON.parse(conf.table);
 
 	// 計算式
-	const calculator = (value, type, word) => {
+	const calculator = function(value, type, word) {
 		let counter = 0;
 		if (value instanceof Array === true) {
 			if (type === 'count') {
 				if (value.indexOf(word) !== -1) counter += 1;
 			} else {
-				$.each(value, (i, val) => {
+				$.each(value, function(i, val) {
 					if (isFinite(val) && val !== '') {
 						if (type === 'sum') counter += parseInt(val);
 						else if (type === 'average') counter += 1;
@@ -36,7 +36,7 @@ jQuery.noConflict();
 	};
 
 	// 各行の集計
-	const calcValue = (row) => {
+	const calcValue = function(row) {
 		let fields = row.totalization_fields;
 		let method = row.totalization_method;
 		let word = row.totalization_word;
@@ -45,11 +45,11 @@ jQuery.noConflict();
     		// count
     		case 'count':
 				let count = 0;
-				$.each(fields, (i, value) => {
+				$.each(fields, function(i, value) {
 					if (!value.subtable_code) {
 						count += calculator(record[value.code].value, method, word);
 					} else {
-						$.each(record[value.subtable_code].value, (i, row) => {
+						$.each(record[value.subtable_code].value, function(i, row) {
 							count += calculator(row.value[value.code].value, method, word);
 						});
 					}
@@ -60,11 +60,11 @@ jQuery.noConflict();
 			// sum
 			case 'sum':
 				let sum = 0;
-				$.each(fields, (i, arr) => {
+				$.each(fields, function(i, arr) {
 					if (!arr.subtable_code) {
 						sum += calculator(record[arr.code].value, method);
 					} else {
-						$.each(record[arr.subtable_code].value, (i, row) => {
+						$.each(record[arr.subtable_code].value, function(i, row) {
 							sum += calculator(row.value[arr.code].value, method);
 						});
 					}
@@ -76,12 +76,12 @@ jQuery.noConflict();
 			case 'average':
 				let avesum = 0;
 				let avecount = 0;
-				$.each(fields, (i, arr) => {
+				$.each(fields, function(i, arr) {
 					if (!arr.subtable_code) {
 						avesum += calculator(record[arr.code].value, 'sum');
 						avecount += calculator(record[arr.code].value, method);
 					} else {
-						$.each(record[arr.subtable_code].value, (i, row) => {
+						$.each(record[arr.subtable_code].value, function(i, row) {
 							avesum += calculator(row.value[arr.code].value, 'sum');
 							avecount += calculator(row.value[arr.code].value, method);
 						});
@@ -99,28 +99,28 @@ jQuery.noConflict();
 	const events = ['app.record.create.show', 'app.record.edit.show', 'app.record.index.edit.show',
 					'app.record.create.submit', 'app.record.edit.submit', 'app.record.index.edit.submit'];
 	let change_push = [];
-	$.each(tables, (i, row) => {
-		$.each(row.totalization_fields, (i, val) => {
+	$.each(tables, function(i, row) {
+		$.each(row.totalization_fields, function(i, val) {
 			change_push.push(val.code);
 		});
 	});
 
 	// 重複排除
-	const change_filter = change_push.filter((x, i, self) => {
+	const change_filter = change_push.filter(function(x, i, self) {
 		return self.indexOf(x) === i;
 	});
 
 	// changeイベント生成
-	$.each(change_filter, (i, val) => {
-		events.push(`app.record.edit.change.${val}`);
-		events.push(`app.record.create.change.${val}`);
-		events.push(`app.record.index.edit.change.${val}`);
+	$.each(change_filter, function(i, val) {
+		events.push('app.record.edit.change.' + val);
+		events.push('app.record.create.change.' + val);
+		events.push('app.record.index.edit.change.' + val);
 	});
 
 	// kintone.event.on
-	kintone.events.on(events, event => {
+	kintone.events.on(events, function(event) {
 		record = event.record;
-		$.each(tables, (i, row) => {
+		$.each(tables, function(i, row) {
 			calcValue(row);
 		});
 		return event;
