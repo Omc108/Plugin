@@ -39,10 +39,12 @@ jQuery.noConflict();
 
     var SearchForQuery = function() {
         var query = kintone.app.getQuery();
+        if (query.indexOf(conf.search_key) === -1) return;
         var param = {};
         param.app = kintone.app.getId();
         param.query = query;
         kintone.api('/k/v1/records', 'GET', param).then(function(resp) {
+            if (resp.records.length === 0) return;
             if (resp.records.length !== 1) {
                 ShowSweetAlert(resp.records);
             } else {

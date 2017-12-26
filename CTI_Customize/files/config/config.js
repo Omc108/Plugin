@@ -6,6 +6,7 @@ jQuery.noConflict();
     // 設定値を保持する
     function setDefault() {
         if (conf){
+            $('#search-key').val(conf.list_main);
             $('#list-main').val(conf.list_main);
             $('#list-sub1').val(conf.list_sub1);
             $('#list-sub2').val(conf.list_sub2);            
@@ -31,6 +32,7 @@ jQuery.noConflict();
                     case 'NUMBER':
                         $option.attr('value', escapeHtml(prop.code));
                         $option.text(escapeHtml(prop.label));
+                        $('#search-key').append($option.clone());
                         $('#list-main').append($option.clone());
                         $('#list-sub1').append($option.clone());
                         $('#list-sub2').append($option.clone());
@@ -44,7 +46,11 @@ jQuery.noConflict();
     // エラーチェック
     function checkValues() {
         if ($('#list-main').val() === '') {
-            swal('Error!', 'メインフィールドは必須です。', 'error'); 
+            swal('Error!', '必須項目です。', 'error'); 
+            return false;
+        }
+        if ($('#search-key').val() === '') {
+            swal('Error!', '必須項目です。', 'error'); 
             return false;
         }
         return true;
@@ -53,6 +59,7 @@ jQuery.noConflict();
     $('#lookup-plugin-submit').click(function() {
         if(!checkValues()) return;
         var config = [];
+        config.search_key = $('#search-key').val();
         config.list_main = $('#list-main').val();
         config.list_sub1 = $('#list-sub1').val();
         config.list_sub2 = $('#list-sub2').val();
