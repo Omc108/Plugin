@@ -1,0 +1,56 @@
+<!--ルックアップ設定-->
+<div class="block">
+    <label class="kintoneplugin-label">
+        <span>検索条件フィールド</span>
+    </label>
+    <br >
+    <div class="kintoneplugin-row">検索条件となるフィールドを選択下さい。このフィールドが絞り込み条件に含まれる際にプログラムが実行されます。
+    <span class="kintoneplugin-require">必須</span>
+    </div>
+    <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select">
+            <select name="search-key" id= "search-key">
+                <option value="">-----</option>
+            </select>
+        </div>
+    </div>
+</div>
+<br >
+<div class="block">
+    <label class="kintoneplugin-label">
+        <span>リスト表示時フィールド</span>
+    </label>
+    <br >
+    <div class="kintoneplugin-row">候補をリスト表示する際に表示させるフィールドを選択下さい。</div>
+    <div class="kintoneplugin-row">メインフィールド<span class="kintoneplugin-require">必須</span></div>
+    <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select">
+            <select name="list-main" id= "list-main">
+                <option value="">-----</option>
+            </select>
+        </div>
+    </div>
+    <div class="kintoneplugin-row">サブフィールド１</div>
+    <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select">
+            <select name="list-sub1" id= "list-sub1">
+                <option value="">-----</option>
+            </select>
+        </div>
+    </div>
+    <div class="kintoneplugin-row">サブフィールド２</div>
+    <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select">
+            <select name="list-sub2" id= "list-sub2">
+                <option value="">-----</option>
+            </select>
+        </div>
+    </div>
+</div>
+<br >
+<!--保存・キャンセルボタン-->
+<div class="block">
+    <button type="button" id="lookup-plugin-submit" class="kintoneplugin-button-dialog-ok">保存する</button>
+    <span class="kintoneplugin-button-between"/>
+    <button type="button" id="lookup-plugin-cancel" class="kintoneplugin-button-dialog-cancel">キャンセル</button>
+</div>
