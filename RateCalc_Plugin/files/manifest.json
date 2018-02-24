@@ -1,0 +1,39 @@
+{
+    "manifest_version": 1,
+    "version": 1,
+    "type": "APP",
+    "name": {
+        "ja": "為替レート取得プラグイン",
+        "en": "Gettig Exchange Rate Plugin",
+        "zh": "為替率取得插件"
+    },
+    "description": {
+        "ja": "為替レートを取得するプラグインです。（場合によりAPIを別途契約する必要があります。）",
+        "en": "It is a plug-in to acquire the exchange rate. In some cases it is necessary to sign an API separately.",
+        "zh": "它是获取汇率的插件。在某些情况下，需要单独签署一个API。"
+    },
+    "icon": "img/icon.png",
+    "desktop": {
+        "js": [
+            "https://js.cybozu.com/jquery/3.1.1/jquery.min.js",
+            "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.min.js",
+            "js/core.js"
+        ],
+        "css": [
+            "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.css",
+            "css/desktop.css"
+        ]
+    },
+    "config": {
+        "html": "html/config.html",
+        "js": [
+            "https://js.cybozu.com/jquery/3.1.1/jquery.min.js",
+            "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.min.js",
+            "js/config.js"
+        ],
+        "css": [
+             "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.css",
+             "css/config.css"
+        ]
+    }
+}
