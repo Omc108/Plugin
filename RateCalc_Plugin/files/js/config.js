@@ -3,6 +3,160 @@ jQuery.noConflict();
     'use strict';
     // プラグインIDの設定を取得
     var conf = kintone.plugin.app.getConfig(PLUGIN_ID);
+    // html create
+    var createhtml = function() {
+        if (kintone.getLoginUser().language === 'ja') {
+          $('.kintone-plugin-setting').html(
+            '<div class="block">\
+              <label class="kintoneplugin-label">\
+                  <span>レート表示項目</span>\
+                  <span class="kintoneplugin-require">必須</span>\
+              </label>\
+              <br >\
+              <div class="kintoneplugin-row">レート情報を表示する数値フィールドを選択してください。</div>\
+              <div class="kintoneplugin-select-outer">\
+                  <div class="kintoneplugin-select">\
+                      <select name="num-select" id= "num-select">\
+                          <option value="">-----</option>\
+                      </select>\
+                  </div>\
+              </div>\
+            </div>\
+            <br >\
+            <!--スペース設定-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>ボタン表示項目</span>\
+                    <span class="kintoneplugin-require">必須</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">追加ボタンを表示するスペースフィールドを選択してください。\
+                <br >スペースフィールドは数値フィールドの右隣りに設置すると見た目が良いです。</div>\
+                <div class="kintoneplugin-select-outer">\
+                    <div class="kintoneplugin-select">\
+                        <select name="space-select" id="space-select">\
+                            <option value="">-----</option>\
+                        </select>\
+                    </div>\
+                </div>\
+            </div>\
+            <br >\
+            <!--サービスチェック-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>為替取得サービス選択</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">有効にするサービスを選択してください。各サービスの詳細は下記になります。<br >\
+                <a href="https://currencylayer.com" target="_blank">currencylayer official site</a> , <a href="https://openexchangerates.org" target="_blank">open exchange rates official site</a></div>\
+                <div class="kintoneplugin-input-radio">\
+                    <span class="kintoneplugin-input-radio-item">\
+                        <input type="radio" id="currencylayer" name="service-select" value="cl">\
+                        <label for="currencylayer">currencylayer</label>　\
+                    </span>\
+                    <span class="kintoneplugin-input-radio-item">\
+                        <input type="radio" id="open-exchange-rates" name="service-select" value="ocr">\
+                        <label for="open-exchange-rates">open exchange rates</label>\
+                    </span>\
+                </div>\
+            </div>\
+            <br >\
+            <!--APIキー-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>Access Key, App ID設定</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">選択したサービスのキー情報を設定ください。</div>\
+                <div class="kintoneplugin-input-outer">\
+                    <input id="api-key" class="kintoneplugin-input-text word-input" type="text">\
+                </div>\
+            </div>\
+            <br >\
+            <!--保存・キャンセルボタン-->\
+            <div class="block"> \
+                <button type="button" id="rate-plugin-submit" class="kintoneplugin-button-dialog-ok">保存する</button>\
+                <span class="kintoneplugin-button-between"/>\
+                <button type="button" id="rate-plugin-cancel" class="kintoneplugin-button-dialog-cancel">キャンセル</button>\
+            </div>'
+          )      
+        } else {
+          $('.kintone-plugin-setting').html(
+            '<div class="block">\
+              <label class="kintoneplugin-label">\
+                  <span>Set Value Field</span>\
+                  <span class="kintoneplugin-require">Require</span>\
+              </label>\
+              <br >\
+              <div class="kintoneplugin-row">Please select a number field to set rate value.</div>\
+              <div class="kintoneplugin-select-outer">\
+                  <div class="kintoneplugin-select">\
+                      <select name="num-select" id= "num-select">\
+                          <option value="">-----</option>\
+                      </select>\
+                  </div>\
+              </div>\
+            </div>\
+            <br >\
+            <!--スペース設定-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>Shown Button Field</span>\
+                    <span class="kintoneplugin-require">Require</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">Please select a space field to display the button.\
+                <br >Space field should be placed on the right side of number field</div>\
+                <div class="kintoneplugin-select-outer">\
+                    <div class="kintoneplugin-select">\
+                        <select name="space-select" id="space-select">\
+                            <option value="">-----</option>\
+                        </select>\
+                    </div>\
+                </div>\
+            </div>\
+            <br >\
+            <!--サービスチェック-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>Select Exchange Rate Service</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">Please select a exchange rate service of available. Each detail of services are below.<br >\
+                <a href="https://currencylayer.com" target="_blank">currencylayer official site</a> , <a href="https://openexchangerates.org" target="_blank">open exchange rates official site</a></div>\
+                <div class="kintoneplugin-input-radio">\
+                    <span class="kintoneplugin-input-radio-item">\
+                        <input type="radio" id="currencylayer" name="service-select" value="cl">\
+                        <label for="currencylayer">currencylayer</label>　\
+                    </span>\
+                    <span class="kintoneplugin-input-radio-item">\
+                        <input type="radio" id="open-exchange-rates" name="service-select" value="ocr">\
+                        <label for="open-exchange-rates">open exchange rates</label>\
+                    </span>\
+                </div>\
+            </div>\
+            <br >\
+            <!--APIキー-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>Set Access Key / App ID</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">Pselase set information for key selected service</div>\
+                <div class="kintoneplugin-input-outer">\
+                    <input id="api-key" class="kintoneplugin-input-text word-input" type="text">\
+                </div>\
+            </div>\
+            <br >\
+            <!--保存・キャンセルボタン-->\
+            <div class="block"> \
+                <button type="button" id="rate-plugin-submit" class="kintoneplugin-button-dialog-ok">Submit</button>\
+                <span class="kintoneplugin-button-between"/>\
+                <button type="button" id="rate-plugin-cancel" class="kintoneplugin-button-dialog-cancel">Cancel</button>\
+            </div>'
+            )
+        }
+    }
     // 設定値を保持する
     function setDefault() {
         if (conf) {
@@ -60,6 +214,7 @@ jQuery.noConflict();
         }
         return true;
     }
+    createhtml();
     //「保存する」ボタン押下時に入力情報を設定する
     $('#rate-plugin-submit').on('click', function() {
         if(!checkValues()) return;
