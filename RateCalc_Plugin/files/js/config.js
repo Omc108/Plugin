@@ -41,6 +41,48 @@ jQuery.noConflict();
                 </div>\
             </div>\
             <br >\
+            <!--通貨設定-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>通貨設定</span>\
+                    <span class="kintoneplugin-require">必須</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">変換する通貨を選択してください。左側がベース通貨となります。<br >\
+                ※Free Planではベース通貨は米ドルしか選べません。</div>\
+                <div class="kintoneplugin-select-outer">\
+                    <div class="kintoneplugin-select">\
+                        <select name="currency-from-select" id="currency-from-select">\
+                            <option value="">-----</option>\
+                            <option value="JPY">日本円</option>\
+                            <option value="USD">米ドル</option>\
+                            <option value="EUR">ユーロ</option>\
+                            <option value="AUD">豪ドル</option>\
+                            <option value="CAD">カナダドル</option>\
+                            <option value="GBP">英ポンド</option>\
+                            <option value="CNY">中国元</option>\
+                            <option value="MXN">メキシコペソ</option>\
+                        </select>\
+                    </div>\
+                </div>\
+                <span style="padding: 0 8px;"><i class="fa fa-lg fa-exchange" aria-hidden="true"></i></span>\
+                <div class="kintoneplugin-select-outer">\
+                    <div class="kintoneplugin-select">\
+                        <select name="currency-to-select" id="currency-to-select">\
+                            <option value="">-----</option>\
+                            <option value="JPY">日本円</option>\
+                            <option value="USD">米ドル</option>\
+                            <option value="EUR">ユーロ</option>\
+                            <option value="AUD">豪ドル</option>\
+                            <option value="CAD">カナダドル</option>\
+                            <option value="GBP">英ポンド</option>\
+                            <option value="CNY">中国元</option>\
+                            <option value="MXN">メキシコペソ</option>\
+                    </select>\
+                    </div>\
+                </div>\
+            </div>\
+            <br >\
             <!--サービスチェック-->\
             <div class="block">\
                 <label class="kintoneplugin-label">\
@@ -116,6 +158,47 @@ jQuery.noConflict();
                 </div>\
             </div>\
             <br >\
+            <!--通貨設定-->\
+            <div class="block">\
+                <label class="kintoneplugin-label">\
+                    <span>Set Convert Currency</span>\
+                    <span class="kintoneplugin-require">Require</span>\
+                </label>\
+                <br >\
+                <div class="kintoneplugin-row">Please select the currencies to convert. Left side is the based currency.<br >※In the Free Plan, the based currency can only select in US dollar.</div>\
+                <div class="kintoneplugin-select-outer">\
+                    <div class="kintoneplugin-select">\
+                        <select name="currency-from-select" id="currency-from-select">\
+                            <option value="">-----</option>\
+                            <option value="JPY">Japanese Yen</option>\
+                            <option value="USD">US Dollar</option>\
+                            <option value="EUR">Euro</option>\
+                            <option value="AUD">Australian Dollar</option>\
+                            <option value="CAD">Canadian Dollar</option>\
+                            <option value="GBP">British Pound</option>\
+                            <option value="CNY">Chinese Yuan</option>\
+                            <option value="MXN">Mexican Peso</option>\
+                        </select>\
+                    </div>\
+                </div>\
+                <span style="padding: 0 8px;"><i class="fa fa-lg fa-exchange" aria-hidden="true"></i></span>\
+                <div class="kintoneplugin-select-outer">\
+                    <div class="kintoneplugin-select">\
+                        <select name="currency-to-select" id="currency-to-select">\
+                            <option value="">-----</option>\
+                            <option value="JPY">Japanese Yen</option>\
+                            <option value="USD">US Dollar</option>\
+                            <option value="EUR">Euro</option>\
+                            <option value="AUD">Australian Dollar</option>\
+                            <option value="CAD">Canadian Dollar</option>\
+                            <option value="GBP">British Pound</option>\
+                            <option value="CNY">Chinese Yuan</option>\
+                            <option value="MXN">Mexican Peso</option>\
+                    </select>\
+                    </div>\
+                </div>\
+            </div>\
+            <br >\
             <!--サービスチェック-->\
             <div class="block">\
                 <label class="kintoneplugin-label">\
@@ -162,6 +245,8 @@ jQuery.noConflict();
         if (conf) {
             $('#num-select').val(conf.num);
             $('#space-select').val(conf.space);
+            $('#currency-from-select').val(conf.crrFrom);
+            $('#currency-to-select').val(conf.crrTo);
             $('#api-key').val(conf.apikey);
             if (conf.service === 'cl') {
                 $('#currencylayer').attr('checked', true);
@@ -205,11 +290,35 @@ jQuery.noConflict();
     // エラーチェック
     function checkValues() {
         if ($('#num-select').val() === '') {
-            swal('Error!', 'ルックアップフィールドは必須です。', 'error'); 
+            if (kintone.getLoginUser().language === 'ja') {
+                swal('Error!', '数値項目を選択してください。', 'error'); 
+            } else {
+                swal('Error!', 'Please select the number field', 'error'); 
+            }
             return false;
         }
         if ($('#space-select').val() === '') {
-            swal('Error!', 'スペースフィールドは必須です。', 'error');
+            if (kintone.getLoginUser().language === 'ja') {
+                swal('Error!', 'スペース項目を選択してください。', 'error');
+            } else {
+                swal('Error!', 'Please select the space field', 'error'); 
+            }
+            return false;
+        }
+        if ($('#currency-from-select').val() === '') {
+            if (kintone.getLoginUser().language === 'ja') {
+                swal('Error!', '通貨設定は必須です。', 'error');
+            } else {
+                swal('Error!', 'Please setting the currency', 'error'); 
+            }
+            return false;
+        }
+        if ($('#currency-to-select').val() === '') {
+            if (kintone.getLoginUser().language === 'ja') {
+                swal('Error!', '通貨設定は必須です。', 'error');
+            } else {
+                swal('Error!', 'Please setting the currency', 'error'); 
+            }
             return false;
         }
         return true;
@@ -221,6 +330,8 @@ jQuery.noConflict();
         var config = [];
         config.num = $('#num-select').val();
         config.space = $('#space-select').val();
+        config.crrFrom = $('#currency-from-select').val();
+        config.crrTo = $('#currency-to-select').val();
         config.apikey = $('#api-key').val();
         if ($('#currencylayer:checked').val()) config.service = $('#currencylayer:checked').val();
         if ($('#open-exchange-rates:checked').val()) config.service = $('#open-exchange-rates:checked').val();

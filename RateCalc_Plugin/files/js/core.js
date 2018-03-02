@@ -6,36 +6,44 @@ jQuery.noConflict();
   // get rate from "currencylayer" or "open exchange rates"
   var FuncRateCalc = function(conf) {
     if (conf.service === 'ocr') {
-      var url = 'https://openexchangerates.org/api/latest.json?app_id=' + conf.apikey;
+      var url = 'https://openexchangerates.org/api/latest.json?app_id=' + conf.apikey + '&base=' + conf.crrFrom;
       kintone.proxy(url, 'GET', {}, {}, function(resp) {
         var parse_resp = JSON.parse(resp);
         if (!parse_resp.status) {
           $.each(parse_resp.rates, function(rule, value) {
-            if (rule === 'JPY') {
+            if (rule === conf.crrTo) {
               var record = kintone.app.record.get();
               record.record[conf.num].value = value;
               kintone.app.record.set(record);
             }
           });
         } else {
-          swal('Error', '処理に失敗しました。=> ' + parse_resp.description, 'error'); 
+          if (kintone.getLoginUser().language === 'ja') {
+            swal('Error', '処理に失敗しました。=> ' + parse_resp.description, 'error'); 
+          } else {
+            swal('Error', 'Processing failed. => ' + parse_resp.description, 'error'); 
+          }
         }
       });
     } else if (conf.service === 'cl') {
-      var url = 'http://www.apilayer.net/api/live?access_key=' + conf.apikey;
+      var url = 'http://www.apilayer.net/api/live?access_key=' + conf.apikey + '&source=' + conf.crrFrom;
       kintone.proxy(url, 'GET', {}, {}, function(resp) {
         var parse_resp = JSON.parse(resp);
         if (parse_resp.success !== false) {
           $.each(parse_resp.quotes, function(rule, value) {
-            if (rule === 'USDJPY') {
+            if (rule === conf.crrFrom + conf.crrTo) {
               var record = kintone.app.record.get();
               record.record[conf.num].value = value;
               kintone.app.record.set(record);
             }
           });
-      } else {
-        swal('Error', '処理に失敗しました。=> ' + parse_resp.error.info, 'error'); 
-      }
+        } else {
+          if (kintone.getLoginUser().language === 'ja') {
+            swal('Error', '処理に失敗しました。=> ' + parse_resp.error.info, 'error'); 
+          } else {
+            swal('Error', 'Processing failed. => ' + parse_resp.description, 'error');             
+          }
+        }
       });
     }
   };
