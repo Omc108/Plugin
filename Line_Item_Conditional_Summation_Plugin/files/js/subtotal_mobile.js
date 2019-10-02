@@ -101,7 +101,7 @@ jQuery.noConflict();
                     }.bind(conf));
                 }
             });
-            record[v].value = totalization;
+            record[v].value = Math.round(totalization * Math.pow(10, 2)) / Math.pow(10, 2);
         });
     };
 
