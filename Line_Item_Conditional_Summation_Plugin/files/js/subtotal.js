@@ -47,7 +47,18 @@ jQuery.noConflict();
                     $.each(record[conf.condition_a_table].value, function(i, subtable_row) {
                         if (setting_row.condition_a_value === subtable_row.value[conf.condition_a].value) {
                             if (setting_row.condition_b_value !== '') {
-                                if (setting_row.condition_b_value === subtable_row.value[conf.condition_b].value) {
+                                var fieldflag = false
+                                // 単選択肢フィールドの場合
+                                if (
+                                    subtable_row.value[conf.condition_b].type === 'CHECK_BOX' ||
+                                    subtable_row.value[conf.condition_b].type === 'MULTI_SELECT'
+                                ) {
+                                    if (subtable_row.value[conf.condition_b].value.indexOf(setting_row.condition_b_value) !== -1) fieldflag = true;
+                                // 複数選択士肢フィールドの場合
+                                } else {
+                                    if (setting_row.condition_b_value === subtable_row.value[conf.condition_b].value) fieldflag = true;
+                                }
+                                if (fieldflag === true) {
                                     // 集計値が計算パーツなら
                                     if (setting_row.num_select_formula) {
                                         $.each(formulaArr, function(i, v) {
@@ -55,7 +66,7 @@ jQuery.noConflict();
                                             if (i === 0) {
                                                 convertformula = setting_row.num_select_formula.replace(regexp, subtable_row.value[v].value);
                                             } else {
-                                                convertformula = convertformula.replace(regexp, subtable_row.value[v].value);                                       
+                                                convertformula = convertformula.replace(regexp, subtable_row.value[v].value);
                                             }
                                         });
                                         totalization += parseFloat(eval(convertformula));
@@ -75,7 +86,7 @@ jQuery.noConflict();
                                     if (i === 0) {
                                         convertformula = setting_row.num_select_formula.replace(regexp, subtable_row.value[v].value);
                                     } else {
-                                        convertformula = convertformula.replace(regexp, subtable_row.value[v].value);                                       
+                                        convertformula = convertformula.replace(regexp, subtable_row.value[v].value);
                                     }
                                 });
                                 totalization += parseFloat(eval(convertformula));
@@ -84,10 +95,10 @@ jQuery.noConflict();
                                 totalization += parseFloat(subtable_row.value[setting_row.num_select].value);
                             }
                         }
-                    }.bind(conf));    
+                    }.bind(conf));
                 }
             });
-            record[v].value = totalization;    
+            record[v].value = Math.round(totalization * Math.pow(10, 2)) / Math.pow(10, 2);
         });
     };
     var createEv = 'app.record.create.';

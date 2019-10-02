@@ -4,8 +4,8 @@
     "type": "APP",
     "name": {
         "ja": "選択項目別集計プラグイン",
-        "en": "Sub-Category Calculation Plug-in",
-        "zh": "Sub-Category Calculation Plug-in"
+        "en": "Line Item Conditional Summation Plugin",
+        "zh": "Line Item Conditional Summation Plugin"
     },
     "description": {
         "ja": "サブテーブル内の選択型フィールドを条件に、選択肢別の集計を行うプラグインです。",
@@ -36,6 +36,8 @@
         "js": [
             "https://js.cybozu.com/jquery/3.1.1/jquery.min.js",
             "https://js.cybozu.com/sweetalert/v1.1.3/sweetalert.min.js",
+            "js/common.js",
+            "js/createHtml.js",
             "js/config.js"
         ],
         "css": [
