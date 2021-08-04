@@ -13,6 +13,11 @@
         "zh": "根据条件显示/隐藏字段。"
     },
     "icon": "image/image.png",
+    "homepage_url": {
+        "ja": "https://bozuman.cybozu.com/k/47946/show#record=62",
+        "en": "https://bozuman.cybozu.com/k/47946/show#record=62",
+        "zh": "https://bozuman.cybozu.com/k/47946/show#record=62"
+    },
     "desktop": {
         "js": [
             "https://js.cybozu.com/jquery/3.1.1/jquery.min.js",
